@@ -128,9 +128,11 @@ exports.addInterview = async (req, res, next) => {
         
         const interview = await Interview.create(req.body);
 
+        const interviewId = interview._id.toString();
         
         const message = `Dear ${user.name},\n\n` +
             `Your job interview session has been successfully booked with the following details:\n\n` +
+            `- Interview ID: ${interviewId}`+
             `- Company: ${company.name}\n` +
             `- Interview Date: ${intDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}\n` +
             `- Your Contact Number: ${user.telephone_number}\n` + 
@@ -157,6 +159,10 @@ exports.addInterview = async (req, res, next) => {
             <p>Dear <strong>${user.name}</strong>,</p>
             <p>Your job interview session has been successfully booked.</p>
             <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>Interview ID</strong></td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">${interviewId}</td>
+                </tr>
                 <tr>
                     <td style="padding: 8px; border: 1px solid #ddd;"><strong>Company</strong></td>
                     <td style="padding: 8px; border: 1px solid #ddd;">${company.name}</td>
