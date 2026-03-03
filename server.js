@@ -82,3 +82,22 @@ process.on('unhandledRejection', (err, promise) => {
   // Use the 'server' variable defined above
   server.close(() => process.exit(1));
 });
+
+//
+console.log("SMTP_HOST:", process.env.SMTP_HOST);
+app.post('/api/v1/test-email', async (req, res) => {
+  const sendEmail = require('./utils/sendEmail');
+
+  try {
+    await sendEmail({
+      email: "yourgmail@gmail.com",
+      subject: "Test Email",
+      message: "This is a test email"
+    });
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
