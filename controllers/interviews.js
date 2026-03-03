@@ -3,11 +3,11 @@ const Company = require('../models/Company');
 const User = require('../models/User');
 async function safeSendEmail(options) {
   try {
-    // require แบบไดนามิคเพื่อไม่ให้ require ตอน startup ถ้าไฟล์หายจะไม่พัง
+    // dynamic require
     const sendEmail = require('../utils/sendEmail');
     return await sendEmail(options);
   } catch (err) {
-    // ถ้าโมดูลไม่มีหรือ error ในการ require -> แจ้ง แต่ไม่ขัดการทำงานของโปรเจกต์
+    // if error then continue without stopping process
     console.warn('sendEmail module not found or failed. Skipping email send. Error:', err && err.message);
     return;
   }
@@ -117,14 +117,34 @@ exports.addInterview = async (req, res, next) => {
             `- Specialization: ${user.specialization || 'General'}\n\n` +
             `We wish you the best of luck with your upcoming interview!\n\n` +
             `Best regards,\n` +
-            `Online Job Fair Registration System`;
+            `3Job (Online Job Fair Registration System)`;
 
         // 5. Send Confirmation Email (Async)
-        await safeSendEmail({
-            email: user.email,
-            subject: 'Job Interview Appointment Confirmation',
-            message
-        });
+        safeSendEmail({
+    email: user.email,
+    subject: 'Job Interview Appointment Confirmation',
+    message, // Fallback for plain text
+    html: `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <h2 style="color: #2c3e50;">Interview Confirmed!</h2>
+            <p>Dear <strong>${user.name}</strong>,</p>
+            <p>Your job interview session has been successfully booked.</p>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>Company</strong></td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">${company.name}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #ddd;"><strong>Date</strong></td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">${intDate.toDateString()}</td>
+                </tr>
+            </table>
+            <p>Best of luck!</p>
+            <hr>
+            <small>Sent via 3Job Online Registration</small>
+        </div>
+    `
+});
         res.status(201).json({ success: true, data: interview });
     } catch (error) {
         console.error(error);

@@ -87,5 +87,3 @@ app.post('/api/v1/test-email', async (req, res) => {
     res.status(500).json({ success: false, error: err.message });
   }
 });
-console.log(process.env.SMTP_USER);
-console.log(process.env.SMTP_PASS);
