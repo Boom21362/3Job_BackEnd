@@ -126,7 +126,14 @@ exports.addInterview = async (req, res, next) => {
     message, // Fallback for plain text
     html: `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-            <h2 style="color: #2c3e50;">Interview Confirmed!</h2>
+            <div style="text-align: center; margin-bottom: 20px;">
+            <img 
+            src="https://lh3.googleusercontent.com/u/0/d/1P7a6Xmb7CL8w7akMWOejJb1hKop-PSP3" 
+            alt="3Job Logo" 
+            style="width: 150px; height: auto; display: block; margin: 0 auto;"
+            >
+            </div>
+            <h2 style="color: #ffffff;background-color: #1656AD; padding: 15px 20px; border-radius: 5px;"> Interview Confirmed!</h2>
             <p>Dear <strong>${user.name}</strong>,</p>
             <p>Your job interview session has been successfully booked.</p>
             <table style="width: 100%; border-collapse: collapse;">
