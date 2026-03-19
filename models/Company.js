@@ -26,8 +26,13 @@ const CompanySchema = new mongoose.Schema({
     }, 
     specializations: [{
         type: String,
-        required:[true,'Please add company\'s specializations']
-    }]
+        default: []
+    }],
+    compimgsrc:{
+        type:String,
+        trim:true,
+        default:"https://placehold.co/600x400?text=Picture"
+    }
 },{
     toJSON:{virtuals:true},
     toObject:{virtuals:true}
