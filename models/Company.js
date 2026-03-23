@@ -32,6 +32,11 @@ const CompanySchema = new mongoose.Schema({
         type:String,
         trim:true,
         default:"https://placehold.co/600x400?text=Picture"
+    },
+    compbannersrc:{
+         type:String,
+        trim:true,
+        default:"https://placehold.co/600x400?text=Picture"
     }
 },{
     toJSON:{virtuals:true},
