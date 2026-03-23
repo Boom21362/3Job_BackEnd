@@ -43,13 +43,6 @@ app.use(cookieParser());
 
 // 4. Data Sanitization (Only sanitize if the body exists and is valid)
 app.use(mongoSanitize());
-app.use(xss({
-  allowedAttributes: {
-    '*': ['href', 'src', 'alt', 'title'] // Allow common attributes
-  },
-  // This tells the sanitizer NOT to strip dots from plain text/strings
-  stripIgnore: ['.', '/'] 
-}));
 app.use(hpp()); // Note: hpp() usually goes after body parsers
 
 //Query Parser
