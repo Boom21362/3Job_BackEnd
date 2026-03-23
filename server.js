@@ -44,7 +44,7 @@ app.use(cookieParser());
 // 4. Data Sanitization (Only sanitize if the body exists and is valid)
 app.use(mongoSanitize({
   allowDots: true,
-  replaceWith: '_',
+  replaceWith: '.',
 }));
 app.use(hpp({
   whitelist: [
