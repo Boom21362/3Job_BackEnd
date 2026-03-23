@@ -41,19 +41,7 @@ app.use(express.json());
 //Cookie parser
 app.use(cookieParser());
 
-// 4. Data Sanitization (Only sanitize if the body exists and is valid)
-app.use(mongoSanitize({
-  allowDots: true,
-  replaceWith: '.',
-}));
-app.use(hpp({
-  whitelist: [
-    'complogosrc',
-    'compbannersrc',
-    'website',
-    'tel'
-  ]
-}));// Note: hpp() usually goes after body parsers
+
 
 //Query Parser
 //app.set('query parser','extended');
