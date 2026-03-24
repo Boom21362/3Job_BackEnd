@@ -63,12 +63,14 @@ exports.getInterview = async (req, res, next) => {
             select: 'name email specializations'
         });
 
+        
         if (!interview) {
             return res.status(404).json({ success: false, message: `No interview with id of ${req.params.id}` });
         }
 
         // Authorization check: User must own the interview or be an admin
-        if (interview.user.toString() !== req.user.id && req.user.role !== 'admin') {
+        const interviewOwnerId = interview.user._id ? interview.user._id.toString() : interview.user.toString();
+        if (interviewOwnerId !== req.user.id && req.user.role !== 'admin') {
             return res.status(401).json({ success: false, message: "Not authorized to access this interview" });
         }
 
@@ -85,7 +87,7 @@ exports.getInterview = async (req, res, next) => {
 exports.addInterview = async (req, res, next) => {
     try {
         req.body.company = req.params.companyId;
-        //req.body.user = req.user.id;
+        req.body.user = req.user.id;
         console.log(req.params.companyId);
         console.log(req.user.id);
 
