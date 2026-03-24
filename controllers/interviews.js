@@ -30,7 +30,7 @@ exports.getInterviews = async (req, res, next) => {
         const interviews = await query
         .populate({
             path: 'company',
-            select: 'name website tel specializations'
+            select: 'name website tel specializations compimgsrc compbannersrc'
         })
         .populate({
             path: 'user',
@@ -56,7 +56,7 @@ exports.getInterview = async (req, res, next) => {
         const interview = await Interview.findById(req.params.id)
         .populate({
             path: 'company',
-            select: 'name website tel specializations'
+            select: 'name website tel specializations compimgsrc compbannersrc'
         })
         .populate({
             path: 'user',
