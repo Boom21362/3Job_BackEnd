@@ -119,7 +119,7 @@ exports.addInterview = async (req, res, next) => {
         }
 
         const intDate = new Date(req.body.intDate);
-        const startDate = new Date('2022-05-10T00:00:00Z');
+        const startDate = new Date('2022-05-9T23:59:59Z');
         const endDate = new Date('2022-05-13T23:59:59Z');
         if(intDate < startDate || intDate > endDate){
             return res.status(400).json({success:false,message:'Interview date must be between 10-05-2022 and 13-05-2022'});
